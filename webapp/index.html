@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Threadful</title>
+
+  <!-- Bootstrap CSS (comment out to see plain HTML) -->
+  <link href="./dist/styles.css" rel="stylesheet">
+
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script src="./components/navbar/navbar.js"></script>
+  
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- HERO -->
+  <header class="text-center text-white py-5 bg-dark" style="background:url('./images/background.jpeg') center/cover no-repeat;">
+    <div class="container">
+      <h1 class="display-4">Welcome to Threadful</h1>
+      <p class="lead">Crochet Art, Made to Last</p>
+    </div>
+  </header>
+
+  <!-- PRODUCTS -->
+  <section class="py-4">
+    <div class="container">
+      <h2 class="text-center mb-4">Featured Products</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="./images/pochacco.jpeg" class="card-img-top" alt="Product Pochacco Plushie">
+            <div class="card-body">
+              <h5 class="card-title">Pochacco Plushie</h5>
+              <p class="card-text">₱250.00</p>
+              <a href="./pages/product_item.html" class="btn btn-primary w-100">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="./images/flower.jpeg" class="card-img-top" alt="Product Flower Keychain">
+            <div class="card-body">
+              <h5 class="card-title">Flower Keychain</h5>
+              <p class="card-text">₱50.00</p>
+              <a href="./pages/product_item.html" class="btn btn-primary w-100">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <img src="./images/tote_bag.jpeg" class="card-img-top" alt="Product White Tote Bag">
+            <div class="card-body">
+              <h5 class="card-title">White Tote Bag</h5>
+              <p class="card-text">₱500.00</p>
+              <a href="./pages/product_item.html" class="btn btn-primary w-100">Add to Cart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="text-center py-3">
+    <p class="mb-0">© 2025 Threadful | Crochet Plushies, Bags & Keychains</p>
+  </footer>
+</body>
+</html>
