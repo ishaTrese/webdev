@@ -75,6 +75,10 @@ function initializeModals() {
 }
 
 function initializeFormValidation() {
+  $.validator.addMethod("strongPassword", function (value, element) {
+    // At least 8 characters, 1 capital letter, 1 number
+    return /^(?=.*[A-Z])(?=.*\d).{8,}$/.test(value);
+  }, "Password must be at least 8 characters, contain at least one uppercase letter and one number.");
   $.validator.addMethod("noSpaceOnly", function (value, element) {
     return $.trim(value).length > 0;
   }, "This field cannot be empty or just spaces.");
@@ -88,12 +92,15 @@ function initializeFormValidation() {
   }, "Please enter a valid name (letters, spaces, hyphens, and apostrophes only).");
 
   $.validator.addMethod("validEmail", function (value, element) {
-    return /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim());
-  }, "Please enter a valid email address.");
+    var trimmed = value.trim();
+    
+    return /^[a-zA-Z0-9]+[._][a-zA-Z0-9._]*@[a-zA-Z0-9.-]+\.com$/.test(trimmed);
+  }, "Email must contain letters, numbers, and either underscore or period. Include '@', and end with '.com'.");
 
   $.validator.addMethod("validContact", function (value, element) {
-    return /^[\d\s+()-]+$/.test(value.trim());
-  }, "Please enter a valid contact number (numbers, spaces, +, -, () only).");
+    var trimmed = value.trim();
+    return /^9\d{9}$/.test(trimmed);
+  }, "Contact number must start with number 9 and be exactly 10 digits.");
 
   $("#loginForm").validate({
     rules: {
@@ -168,7 +175,7 @@ function initializeFormValidation() {
       },
       signupPassword: {
         required: true,
-        minlength: 6,
+        strongPassword: true,
         noSpaceOnly: true,
         noWhitespace: true
       },
