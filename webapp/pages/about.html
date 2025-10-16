@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>About - Threadful</title>
 
     <link rel="stylesheet" href="../dist/styles.css">
 
@@ -16,7 +16,100 @@
 <body>
 
     <!-- NAVBAR -->
-    <div id="navbar-placeholder"></div>
+    <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html" id="brandLink">Threadful</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <form class="d-flex flex-grow-1 mx-3" role="search" style="max-width: 400px;">
+        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="./products.html">Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="./about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="./contact.html">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="./cart.html">🛒 Cart</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="loginLink">Login/Signup</a></li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Login -->
+    <div class="modal-backdrop" id="loginBackdrop"></div>
+    <div class="custom-modal" id="loginModal">
+    <div class="modal-header">
+        <h5 class="modal-title">Login</h5>
+        <button type="button" class="close-modal" id="closeLogin">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="loginForm" novalidate>
+        <div class="mb-3">
+            <label for="loginUser" class="form-label">Username</label>
+            <input type="text" class="form-control" id="loginUser" name="loginUser" required />
+        </div>
+        <div class="mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" name="loginPassword" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+        <div class="text-center">
+            <span class="link-text" id="showSignup">No Account Yet? Sign up here</span>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <!-- Signup -->
+    <div class="modal-backdrop" id="signupBackdrop"></div>
+    <div class="custom-modal" id="signupModal">
+    <div class="modal-header">
+        <h5 class="modal-title">Sign Up</h5>
+        <button type="button" class="close-modal" id="closeSignup">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="signupForm" novalidate>
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" required />
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" required />
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" required />
+        </div>
+        <div class="mb-3">
+            <label for="signupEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="signupEmail" name="signupEmail" required />
+        </div>
+        <div class="mb-3">
+            <label for="contactNumber" class="form-label">Contact Number</label>
+            <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="e.g. 9123456789" required />
+        </div>
+        
+        <div class="separator"></div>
+        
+        <div class="mb-3">
+            <label for="signupPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signupPassword" name="signupPassword" required />
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        </form>
+    </div>
+    </div>
 
     <!-- Breadcrumb -->
      
@@ -46,6 +139,221 @@
         </p>
     </div>
     </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-3">
+        <p class="mb-0">© 2025 Threadful | Crochet Plushies, Bags & Keychains</p>
+    </footer>
+
+  <script>
+    $(document).ready(function() {
+
+      function initializeModals() {
+        $("#loginLink").click(function(e) {
+          e.preventDefault();
+          $("#loginBackdrop").addClass("show");
+          $("#loginModal").addClass("show");
+        });
+
+        $("#closeLogin, #loginBackdrop").click(function() {
+          $("#loginBackdrop").removeClass("show");
+          $("#loginModal").removeClass("show");
+        });
+
+        $("#showSignup").click(function() {
+          $("#loginBackdrop").removeClass("show");
+          $("#loginModal").removeClass("show");
+          $("#signupBackdrop").addClass("show");
+          $("#signupModal").addClass("show");
+        });
+
+        $("#closeSignup, #signupBackdrop").click(function() {
+          $("#signupBackdrop").removeClass("show");
+          $("#signupModal").removeClass("show");
+        });
+
+        $(".custom-modal").click(function(e) {
+          e.stopPropagation();
+        });
+
+        initializeFormValidation();
+      }
+
+      function initializeFormValidation() {
+        $.validator.addMethod("strongPassword", function (value, element) {
+          // At least 8 characters, 1 capital letter, 1 number
+          return /^(?=.*[A-Z])(?=.*\d).{8,}$/.test(value);
+        }, "Password must be at least 8 characters, contain at least one uppercase letter and one number.");
+
+        $.validator.addMethod("noSpaceOnly", function (value, element) {
+          return $.trim(value).length > 0;
+        }, "This field cannot be empty or just spaces.");
+
+        $.validator.addMethod("noWhitespace", function (value, element) {
+          return /^\S+$/.test(value);
+        }, "No spaces allowed.");
+
+        $.validator.addMethod("validName", function (value, element) {
+          return /^[A-Za-z]+(?:[ '-][A-Za-z]+)*$/.test(value.trim());
+        }, "Please enter a valid name (letters, spaces, hyphens, and apostrophes only).");
+
+        $.validator.addMethod("validEmail", function (value, element) {
+          var trimmed = value.trim();
+          return /^[a-zA-Z0-9]+[._]?[a-zA-Z0-9._]*@[a-zA-Z0-9.-]+\.com$/.test(trimmed);
+        }, "Email must contain letters, numbers, and either underscore or period. Include '@', and end with '.com'.");
+
+        $.validator.addMethod("validContact", function (value, element) {
+          var trimmed = value.trim();
+          return /^9\d{9}$/.test(trimmed);
+        }, "Contact number must start with number 9 and be exactly 10 digits.");
+
+        $("#loginForm").validate({
+          rules: {
+            loginUser: {
+              required: true,
+              noSpaceOnly: true,
+              noWhitespace: true
+            },
+            loginPassword: {
+              required: true,
+              noSpaceOnly: true,
+              noWhitespace: true
+            }
+          },
+          messages: {
+            loginUser: {
+              required: "Please enter your username."
+            },
+            loginPassword: {
+              required: "Please enter your password."
+            }
+          },
+          errorClass: "is-invalid",
+          validClass: "is-valid",
+          errorElement: "div",
+          errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            error.insertAfter(element);
+          },
+          highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+          },
+          unhighlight: function (element) {
+            $(element).removeClass("is-invalid").addClass("is-valid");
+          },
+          submitHandler: function(form) {
+            alert("Login successful!");
+            $("#loginBackdrop").removeClass("show");
+            $("#loginModal").removeClass("show");
+            form.reset();
+            $("#loginForm").find(".is-valid").removeClass("is-valid");
+            return false;
+          }
+        });
+
+        $("#signupForm").validate({
+          rules: {
+            firstName: {
+              required: true,
+              noSpaceOnly: true,
+              validName: true
+            },
+            lastName: {
+              required: true,
+              noSpaceOnly: true,
+              validName: true
+            },
+            address: {
+              required: true,
+              noSpaceOnly: true
+            },
+            signupEmail: {
+              required: true,
+              email: true,
+              noSpaceOnly: true,
+              validEmail: true
+            },
+            contactNumber: {
+              required: true,
+              noSpaceOnly: true,
+              validContact: true
+            },
+            signupPassword: {
+              required: true,
+              strongPassword: true,
+              noSpaceOnly: true,
+              noWhitespace: true
+            },
+            confirmPassword: {
+              required: true,
+              equalTo: "#signupPassword"
+            }
+          },
+          messages: {
+            firstName: {
+              required: "Please enter your first name."
+            },
+            lastName: {
+              required: "Please enter your last name."
+            },
+            address: {
+              required: "Please enter your address."
+            },
+            signupEmail: {
+              required: "Please enter your email.",
+              email: "Enter a valid email address."
+            },
+            contactNumber: {
+              required: "Please enter your contact number."
+            },
+            signupPassword: {
+              required: "Please enter a password.",
+              minlength: "Password must be at least 6 characters."
+            },
+            confirmPassword: {
+              required: "Please confirm your password.",
+              equalTo: "Passwords do not match."
+            }
+          },
+          errorClass: "is-invalid",
+          validClass: "is-valid",
+          errorElement: "div",
+          errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            error.insertAfter(element);
+          },
+          highlight: function (element) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+          },
+          unhighlight: function (element) {
+            $(element).removeClass("is-invalid").addClass("is-valid");
+          },
+          submitHandler: function(form) {
+            alert("Signup successful! Welcome to Threadful!");
+            $("#signupBackdrop").removeClass("show");
+            $("#signupModal").removeClass("show");
+            form.reset();
+            $("#signupForm").find(".is-valid").removeClass("is-valid");
+            return false;
+          }
+        });
+      }
+
+      function setActiveNavLink() {
+        var currentPage = window.location.pathname.split("/").pop();
+        $('.nav-link').removeClass('active');
+        $('.nav-link').each(function() {
+          var href = $(this).attr('href');
+          if (href && (href.includes(currentPage) || (currentPage === '' && href.includes('index.html')))) {
+            $(this).addClass('active');
+          }
+        });
+      }
+
+      initializeModals();
+      setActiveNavLink();
+    });
+  </script>
 
 </body>
 </html>
