@@ -391,7 +391,8 @@
           $("#loginModal").addClass("show");
         });
 
-        $("#closeLogin, #loginBackdrop").click(function() {
+        $("#closeLogin").on("click", function(e) {
+          e.preventDefault();
           $("#loginBackdrop").removeClass("show");
           $("#loginModal").removeClass("show");
         });
@@ -403,7 +404,8 @@
           $("#signupModal").addClass("show");
         });
 
-        $("#closeSignup, #signupBackdrop").click(function() {
+        $("#closeSignup").on("click", function(e) {
+          e.preventDefault();
           $("#signupBackdrop").removeClass("show");
           $("#signupModal").removeClass("show");
         });
